@@ -13,11 +13,6 @@ b {
     font-weight: 900;
 }
 
-.outline {
-    fill: none;
-    stroke: #888888;
-    stroke-width: 1px;
-}
 
 #tooltip {
     font-size: 10pt;
@@ -51,7 +46,7 @@ b {
     stroke: black;
 }
 
-.dropdown {
+      .dropdown {
     position: relative;
     display: inline-block;
 }
@@ -92,6 +87,10 @@ b {
       cursor: pointer;
     }
 
+    .button {
+        margin-left: 20%;
+    }
+
     .selected {
       color: black;
       border-bottom: solid black 0.5px;
@@ -107,10 +106,13 @@ b {
     .btn {
         display:inline;
     }
+
+
 </style>
 
 <!-- JavaScript Libraries //-->
  <script type="text/javascript" src="js/d3-3.1.0/d3.js"></script>
+ <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
 <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
 <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
 <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script> -->
@@ -122,44 +124,50 @@ b {
 </head>
 
 <body>
-<div class="dropdown">  
-    <button type="button" class="dropbtn">种类</button>  
-    <div class="dropdown-content">  
-        <li><a id="real">真人秀</a></li> 
-        <li><a id="talent">选秀</a></li>
-        <li><a id="talk">脱口秀</a></li>
-    </div>  
-</div>  
+    <div class="button">
+          <div class="dropdown">  
+              <button type="button" class="dropbtn">种类</button>  
+              <div class="dropdown-content">  
+                  <li><a id="real">真人秀</a></li> 
+                  <li><a id="talent">选秀</a></li>
+                  <li><a id="talk">脱口秀</a></li>
+              </div>  
+          </div>  
 
-<div class="dropdown">  
-    <button type="button" class="dropbtn">来源国</button>  
-    <div class="dropdown-content">  
-        <li><a id="kr">韩国</a></li>
-        <li><a id="jp">日本</a></li> 
-        <li><a id="us">美国</a></li>
-        <li><a id="uk">英国</a></li>
-        <li><a id="nt">荷兰</a></li>
-        <li><a id="gm">德国</a></li>
-        <li><a id="sp">西班牙</a></li>
-        <li><a id="ir">以色列</a></li>
-        <li><a id="bg">比利时</a></li>
-        <li><a id="ai">爱尔兰</a></li>
-        <li><a id="at">澳大利亚</a></li> 
-    </div>  
-</div>
-<button id="reset">重置</button>
+          <div class="dropdown">  
+              <button type="button" class="dropbtn">来源国</button>  
+              <div class="dropdown-content">  
+                  <li><a id="kr">韩国</a></li>
+                  <li><a id="jp">日本</a></li> 
+                  <li><a id="us">美国</a></li>
+                  <li><a id="uk">英国</a></li>
+                  <li><a id="nt">荷兰</a></li>
+                  <li><a id="gm">德国</a></li>
+                  <li><a id="sp">西班牙</a></li>
+                  <li><a id="ir">以色列</a></li>
+                  <li><a id="bg">比利时</a></li>
+                  <li><a id="ai">爱尔兰</a></li>
+                  <li><a id="at">澳大利亚</a></li> 
+              </div>  
+          </div>
+          <button id="reset">重置</button>
+    </div>
 
 <script>
     d3.json("data/project_data327.json", arcDiagram);
 
 /* GLOBALS */
 
-var width  = 1200;           // width of svg image
-var height = 600;           // height of svg image
+var width  = 900;           // width of svg image
+var height = 500;           // height of svg image
 var margin = 20;            // amount of margin around plot area
 var pad = margin / 2;       // actual padding amount
 var radius = 3;             // fixed node radius
-var yfixed = height*4/5;  // y position for all nodes
+var yfixed = height*3/4;  // y position for all nodes
+
+var screenwidth = $(window).width();
+
+
 
     
 /* MAIN DRAW METHOD */
@@ -175,7 +183,7 @@ function arcDiagram(graph) {
         .attr("id", "arc")
         .attr("width", width)
         .attr("height", height)
-       /* .call(zoom)*/;
+        .style("margin-left", screenwidth/6);
 
  //   draw border around svg image
 /*    svg.append("rect")

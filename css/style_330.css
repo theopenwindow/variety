@@ -1,7 +1,18 @@
      body {
       margin:0;
       padding:0;
+      background-color: #fef8e8;
+
      }
+
+
+/*        .container {
+          width: 1280px;
+          height: 4450px;
+          margin-left: auto;
+          margin-right: auto;
+        }*/
+
      .cover {
         content:url("../img/cover.png");
         width: 100%;
@@ -47,7 +58,6 @@
 
       #part2 {
         height:950px;
-        background-color: #fef8e8;
       }
 
       #part3 {
@@ -76,6 +86,8 @@
       #lifeline {
         height:800px;
       }
+
+
       
 
           p {

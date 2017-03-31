@@ -90,11 +90,11 @@
 	<script type="text/javascript">
 
 		// this is the size of the svg container -- the white part
-			var fullwidth = 1300,
+			var fullwidth = 800,
 				fullheight = 1000;
 
 			// these are the margins around the graph. Axes labels go in margins.
-			var margin = {top: 0, right: 25, bottom: 20, left: 200};
+			var margin = {top: 0, right: 25, bottom: 20, left: 0};
 
 			var width = fullwidth - margin.left - margin.right,
     		height = fullheight - margin.top - margin.bottom;
@@ -145,7 +145,7 @@
 
 				// Make the faint lines from y labels to highest dot
 
-				var linesGrid = svg.selectAll("lines.grid")
+/*				var linesGrid = svg.selectAll("lines.grid")
 					.data(data)
 					.enter()
 					.append("line");
@@ -161,7 +161,7 @@
 					})
 					.attr("y2", function(d) {
 						return heightScale(d.name) + heightScale.rangeBand()/2-100;
-					});
+					});*/
 
 				// Make the dotted lines between the dots
 
@@ -172,13 +172,13 @@
 
 				linesBetween.attr("class", "between")
 					.attr("x1", function(d) {
-						return margin.left + widthScale(+d.start);
+						return widthScale(+d.start);
 					})
 					.attr("y1", function(d) {
 						return heightScale(d.name) + heightScale.rangeBand()/2-100;
 					})
 					.attr("x2", function(d) {
-						return margin.left + widthScale(d.end);
+						return widthScale(d.end);
 					})
 					.attr("y2", function(d) {
 						return heightScale(d.name) + heightScale.rangeBand()/2-100;
