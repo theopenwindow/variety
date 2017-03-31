@@ -1,0 +1,146 @@
+
+<html>
+    <head>
+      <title>Jellyfish</title>
+<!--       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script> -->
+      <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+       <script type="text/javascript" src="js/d3-3.1.0/d3.js"></script>
+      <style type="text/css">
+          body,html, div {
+            height:600px;
+          }
+
+          .wrapper {
+                 width: 600px;
+                 margin: 40px auto 40px auto;
+          }
+          .axis path,
+          .axis line {
+          	fill: none;
+          	stroke: black;
+           	shape-rendering: crispEdges;
+         	
+          }
+
+          .axis text {
+          	font-family: sans-serif;
+          	font-size: 11px;
+          }
+      </style>
+    </head>
+    <body>
+      <div class="wrapper">
+       
+       <div id="svg"></div>
+      
+      </div><!-- wrapper -->
+    </body>
+    <script type="text/javascript">
+            var fullWidth = 800;
+            var fullHeight = 500;
+
+            var margin = {top: 15, right: 100, bottom: 80, left: 100};
+
+            var width =  fullWidth - margin.left - margin.right;
+            var height = fullHeight - margin.top - margin.bottom;
+
+            // var dotRadius = 6;
+
+            var color = d3.scale.category20();
+
+            var xScale = d3.scale.ordinal()
+                                 .rangeRoundBands([margin.left, margin.left+width], 1);
+            var yScale = d3.scale.linear()
+                                 .range([margin.top+height, margin.top]);
+
+            var xAxis = d3.svg.axis()
+                              .scale(xScale)
+                              .orient("bottom");
+                              //.ticks(3);
+            var yAxis = d3.svg.axis()
+                              .scale(yScale)
+                              .orient("left");
+
+            var svg = d3.select("#svg")
+                        .append("svg")
+                        .attr("width", fullWidth)
+                        .attr("height", fullHeight);
+
+            d3.csv("data/jellyfish_data331.csv", function(data){
+
+              data.sort(function(a, b) {
+                return d3.descending(+a.genre, +b.genre);
+              });
+
+            	xScale.domain(data.map(
+                function(d){
+            			return d.genre;
+            		}));
+            	yScale.domain(d3.extent(
+            		data, function(d){
+            			return + d.score;
+            		}));
+          
+
+            	var circles = svg.selectAll("circle")
+            	                 .data(data)
+            	                 .enter()
+            	                 .append("circle")
+            	                 .attr("class", "dots");
+
+
+              var circleScale = d3.scale.linear()
+                                        .range([3, 30])
+                                        .domain([100, 20000])
+                                        .domain(d3.extent(data, function(d){
+                                          return +d.population;
+                                        }));
+
+            	circles.attr("cx", function(d){
+            		    return +xScale(d.genre);
+            	})
+            	       .attr("cy", function(d){
+            	       	return +yScale(d.score);
+            	       })
+            	       .attr("r", function(d){
+                      return circleScale(d.population);
+                     })
+                     .attr("opacity", "0.5")
+                     .attr("fill",   function(d,i) { return color(d.country); })
+            	       .append("title")
+            	       .text(function(d){
+            	       	return d.name; /*+ "% people of " + d.Country + " feel leisure time is important; and," + d.Feel_very_happy + "% of their people feel very happy." */
+            	       });
+
+            	svg.append("g")
+            	   .attr("class", "x axis")
+            	   .attr("transform", "translate(0, "+(margin.top + height)+ ")")
+            	   .call(xAxis);
+
+            	svg.append("g")
+            	   .attr("class", "y axis")
+            	   .attr("transform", "translate("+ (margin.left)+", 0)")
+            	   .call(yAxis);
+
+//x,y axis label:
+            	 svg.append("text")
+                   .attr("transform", "rotate(-90)")
+                   .attr("y", margin.left/3)
+                   .attr("x", 0 - fullHeight/2)
+                   .attr("dy", "1em")
+                   .style("text-anchor", "middle")
+                   .text("score")
+                   .attr("font-family", "sans-serif")
+                   .attr("font-size", "90%");
+
+                svg.append("text")
+                   .attr("transform", "translate(" + (fullWidth/2) + ", "+ (fullHeight-margin.bottom/2) + ")")
+                   .style("text-anchor", "middle")
+                   .text("genre")
+                   .attr("font-family", "sans-serif")
+                   .attr("font-size", "90%");
+
+            })
+
+       </script>
+</html>

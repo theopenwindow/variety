@@ -1,0 +1,658 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Arc Graph</title>
+<style>
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+}
+
+b {
+    font-weight: 900;
+}
+
+.outline {
+    fill: none;
+    stroke: #888888;
+    stroke-width: 1px;
+}
+
+#tooltip {
+    font-size: 10pt;
+    font-weight: 900;
+
+    fill: #000000;
+    stroke: #ffffff;
+    stroke-width: 0.25px;
+}
+
+.node {
+    stroke: #ffffff;
+    stroke-weight: 1px;
+}
+
+.link {
+    fill: none;
+    stroke-weight: 1px;
+    stroke-opacity: 0.5;
+}
+
+.highlight {
+    stroke: red;
+    stroke-weight: 4px;
+    stroke-opacity: 1.0;
+}
+
+.axis path,
+.axis line{
+    fill:none;
+    stroke: black;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+      button {
+      margin-bottom: 2vw;
+      -webkit-border-radius: 8;
+      -moz-border-radius: 8;
+      border-radius: 3px;
+      font-family: Arial;
+      border: none;
+      color: #ccc;
+      font-size: 15px;
+      background: linear-gradient(#eee, #f9f9f9, #eee);
+      box-shadow: 1px 1px 1px #cecece;
+      padding: 2px 10px 2px 10px;
+      text-decoration: none;
+    }
+
+    button:hover {
+      background: #eeeeee;
+      color: #595959;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .selected {
+      color: black;
+      border-bottom: solid black 0.5px;
+    }
+
+    li:hover {
+      background: #eeeeee;
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn {
+        display:inline;
+    }
+</style>
+
+<!-- JavaScript Libraries //-->
+ <script type="text/javascript" src="js/d3-3.1.0/d3.js"></script>
+<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script> -->
+
+<!-- CSS Style //-->
+<!-- <link href="style.css" rel="stylesheet" type="text/css"> -->
+
+<!-- <script type="text/javascript" src="main_timeline_329.js"></script> -->
+</head>
+
+<body>
+<div class="dropdown">  
+    <button type="button" class="dropbtn">种类</button>  
+    <div class="dropdown-content">  
+        <li><a id="real">真人秀</a></li> 
+        <li><a id="talent">选秀</a></li>
+        <li><a id="talk">脱口秀</a></li>
+    </div>  
+</div>  
+
+<div class="dropdown">  
+    <button type="button" class="dropbtn">来源国</button>  
+    <div class="dropdown-content">  
+        <li><a id="kr">韩国</a></li>
+        <li><a id="jp">日本</a></li> 
+        <li><a id="us">美国</a></li>
+        <li><a id="uk">英国</a></li>
+        <li><a id="nt">荷兰</a></li>
+        <li><a id="gm">德国</a></li>
+        <li><a id="sp">西班牙</a></li>
+        <li><a id="ir">以色列</a></li>
+        <li><a id="bg">比利时</a></li>
+        <li><a id="ai">爱尔兰</a></li>
+        <li><a id="at">澳大利亚</a></li> 
+    </div>  
+</div>
+<button id="reset">重置</button>
+
+<script>
+    d3.json("data/project_data327.json", arcDiagram);
+
+/* GLOBALS */
+
+var width  = 1200;           // width of svg image
+var height = 600;           // height of svg image
+var margin = 20;            // amount of margin around plot area
+var pad = margin / 2;       // actual padding amount
+var radius = 3;             // fixed node radius
+var yfixed = height*4/5;  // y position for all nodes
+
+    
+/* MAIN DRAW METHOD */
+
+// Draws an arc node for the provided undirected graph
+function arcDiagram(graph) {
+
+
+
+    // create svg image
+    var svg  = d3.select("body")
+        .append("svg")
+        .attr("id", "arc")
+        .attr("width", width)
+        .attr("height", height)
+       /* .call(zoom)*/;
+
+ //   draw border around svg image
+/*    svg.append("rect")
+         .attr("class", "outline")
+         .attr("width", width)
+         .attr("height", height);*/
+
+    // create plot area within svg image
+    var plot = svg.append("g")
+        .attr("id", "plot")
+        .attr("transform", "translate(" + radius/10 + ", " + radius/10 + ")");
+
+
+
+
+    // fix graph links to map to objects instead of indices
+    graph.links.forEach(function(d, i) {
+        d.source = isNaN(d.source) ? d.source : graph.nodes[d.source];
+        d.target = isNaN(d.target) ? d.target : graph.nodes[d.target];
+    });
+
+     
+    // draw nodes 
+    drawNodes(graph);
+
+}
+
+
+// Draws nodes on plot
+function drawNodes(graph) {
+
+        var parseDate = d3.time.format("%Y-%m-%d").parse;
+console.log(parseDate("1984-05-06"));
+        var xscale = d3.time.scale()
+        .domain(d3.extent(graph.nodes, function(d){
+            return parseDate(d.group); 
+        }))
+        .range([radius/10, width - margin *2]);
+
+        var xAxis = d3.svg.axis()
+                    .scale(xscale)
+                    .orient("bottom")
+                    .tickSize(pad);
+
+        var zoom = d3.behavior.zoom()
+                .x(xscale)
+                .scaleExtent([1,10])
+                /*.on("zoom", zoomed)*/;
+
+        graph.nodes.forEach(function(d, i) {
+            d.x = xscale(parseDate(d.group));
+            d.y = yfixed;
+         }); 
+
+
+    function nodeOver(d,i) {
+        d3.selectAll('circle').style('opacity', function (n) {
+            if (d.right != n.right) 
+                { return ".2"; }
+            else 
+                { return "1"; }
+        });
+        d3.selectAll('circle').style('r', function (n) {
+            if (d.right != n.right) 
+                { return "1"; }
+            else 
+                { return "5"; }
+        });
+        d3.selectAll('path').style('opacity', function (n) {
+            if (d == n.target || d == n.source) 
+                { return "1"; }
+            else 
+                { return ".2"; }
+        });
+        d3.selectAll('path').style('stroke-width', function (n) {
+            if (d == n.target || d == n.source) 
+                { return "3"; }
+            else 
+                { return "1"; }
+        });
+        d3.selectAll('.label').style('opacity', function (n) {
+            if (d.right != n.right) 
+                { return "0"; }
+            else 
+                { return "1"; }
+        });
+        d3.selectAll('.genre').style('opacity', function (n) {
+            if (d.right == n.source.right||d.right == n.target.right) 
+                { return "1"; }
+            else 
+                { return "0"; }
+        });
+
+    };//end of function nodeOver
+
+    function linkOver(d,i) {
+        d3.selectAll('circle').style('opacity', function (n) {
+            if (d.source == n||d.target==n)
+                { return "1"; }
+            else 
+                { return ".2"; }
+        });
+        d3.selectAll('circle').style('r', function (n) {
+            if (d.source == n||d.target==n) 
+                { return "5"; }
+            else 
+                { return "1"; }
+        });
+        d3.selectAll('path').style('opacity', function (n) {
+            if (d == n) 
+                { return "1"; }
+            else 
+                { return ".2"; }
+        });
+        d3.selectAll('path').style('stroke-width', function (n) {
+            if (d == n) 
+                { return "3"; }
+            else 
+                { return "1"; }
+        });
+        d3.selectAll('.label').style('opacity', function (n) {
+            if (d.source.right == n.right) 
+                { return "1"; }
+            else 
+                { return "0"; }
+        });
+
+        d3.selectAll('.genre').style('opacity', function (n) {
+            if (d.source.right == n.source.right||d.target.right == n.target.right) 
+                { return "1"; }
+            else 
+                { return "0"; }
+        });
+
+    };//end of function nodeOver
+
+    function mouseOut(){
+            // d3.select("#tooltip").remove(); 
+            d3.selectAll("circle").style("r", "3");
+            d3.selectAll("circle").style("opacity", "1");
+            d3.selectAll("path").style("stroke-width", "1");
+            d3.selectAll("path").style("opacity", "1");
+            d3.selectAll(".label").style("opacity", "0")
+            d3.selectAll(".genre").style("opacity", "0");
+    };
+
+
+    // used to assign nodes color by group
+    var color = d3.scale.category20();
+
+    var svgZoom = d3.select("#plot").append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(" + margin + "," + margin + ")")
+                .call(zoom);
+    
+    var node = svgZoom.selectAll(".node")
+        .data(graph.nodes)
+        .enter();
+                
+        node.append("circle")
+        .attr("class", "node")
+        .attr("id", function(d, i) { return d.name; })
+        /*.attr("cx", function(d){ return d.x;})
+        .attr("cy", function(d, i) { return d.y; })*/
+        .attr("transform", transform)
+        .attr("r",  function(d, i) { return radius; })
+        .style("fill",   function(d, i) { return color(d.original_country); })
+        //.on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
+        .on("mouseover", nodeOver)
+        .on("mouseout",  mouseOut);
+
+        node.append("text")
+                .attr("class","label")
+                .text(function(d){
+                    return d.name;
+                })
+                .attr("transform", transformed_label)
+                /*.attr("x", function(d){
+                    return d.x
+                })
+                .attr("y", function(d){
+                    return (d.y+20);
+                })*/
+                .style("text-anchor", function(d){
+                    if(d.original_country=="中国"){
+                        return "start";
+                    }else{
+                        return "end";
+                    }
+                })
+                .style("opacity", 0);
+
+        svgZoom.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate("+radius+","+ (yfixed+margin)+")")
+            .call(xAxis);
+
+
+        function transform(d) {
+            return "translate(" + xscale(parseDate(d.group)) + "," + yfixed + ")";
+          }
+
+          function transformed_label(d){
+            return "translate(" + xscale(parseDate(d.group)) + "," + (yfixed+20) + ")";
+          }
+
+
+
+
+        // Draws nice arcs for each link on plot
+        drawLinks(graph.links);
+        function drawLinks(links) {
+
+            // scale to generate radians (just for lower-half of circle)
+            var radians = d3.scale.linear()
+                .range([Math.PI / 2, 3 * Math.PI / 2]);
+
+            var counter = 0;
+            // path generator for arcs (uses polar coordinates)
+            var arc = d3.svg.line.radial()
+                .interpolate("basis")
+                .tension(0)
+                .angle(function(d,i) { return radians(d); });
+
+            // add links
+
+            var link = svgZoom.selectAll(".link")
+                .data(links)
+                .enter();
+
+            link.append("path")
+            .attr("class", "link")
+            .style("stroke", function(d){return color(d.genre);})
+            .style("stroke-width", function(d){return d.value;})
+            .attr("transform", transformed)
+            .attr("d", discription)
+            .on("mouseover", linkOver)
+            .on("mouseout", mouseOut);
+
+            link.append("text")
+                .attr("class","genre")
+                .text(function(d){
+                    return d.genre;
+                })
+                .attr("transform", transformed_genre)
+                .style("opacity", 0)
+                .style("text-anchor", "middle");
+
+            function zoomed(){
+                svgZoom.select(".x.axis").call(xAxis);
+                svgZoom.selectAll(".node").attr("transform", transform);
+                svgZoom.selectAll(".link").attr("transform", transformed);
+                svgZoom.selectAll(".link").attr("d", discription);
+                svgZoom.selectAll(".label").attr("transform", transformed_label);
+                svgZoom.selectAll(".genre").attr("transform", transformed_genre);
+            };
+
+            zoom.on("zoom", zoomed);
+
+            function reset() {
+                  d3.transition().duration(750).tween("zoom", function() {
+                    var ix = d3.interpolate(xscale.domain(), ([parseDate("1984-05-06"), parseDate("2017-01-15")]));
+                    return function(t) {
+                      zoom.x(xscale.domain(ix(t)));
+                      zoomed();
+                    };
+                  });
+                  d3.selectAll("path").style("stroke", function(d){return color(d.genre);})
+                };
+
+            d3.select("#reset").on("click", function(){
+                reset();
+
+            });
+
+            d3.selectAll(".node").on("click", function(){
+                reset();
+                mouseover(this);
+            })
+
+            function transformed(d) {
+                // arc will always be drawn around (0, 0)
+                // shift so (0, 0) will be between source and target
+var source = xscale(parseDate(d.source.group));
+var target = xscale(parseDate(d.target.group));
+                var xshift = source+(target- source)/2
+                // var xshift = d.source.x + (d.target.x - d.source.x) / 2;
+                var yshift = yfixed;
+                return "translate(" + xshift + ", " + yshift + ")";
+            }
+
+            function transformed_genre(d){
+var source = xscale(parseDate(d.source.group));
+var target = xscale(parseDate(d.target.group));
+                var xshift = source+(target- source)/2
+                var yshift = yfixed - (Math.abs(source - target))/2-radius;
+                return "translate(" + xshift + ", " + yshift + ")";
+            }
+
+            function discription(d) {
+var source = xscale(parseDate(d.source.group));
+var target = xscale(parseDate(d.target.group));
+                // get x distance between source and target
+                var xdist = Math.abs(source - target);
+                // var xdist = Math.abs(d.source.x - d.target.x);
+                // set arc radius based on x distance
+                arc.radius(xdist / 2);
+
+                // want to generate 1/3 as many points per pixel in x direction
+                var points = d3.range(0, Math.ceil(xdist/3));
+
+                // means +vely correlated. draw above x axis
+                if(d.polarity==1){
+                    // set radian scale domain
+                    radians.domain([0,points.length-1]);
+                }else{
+                    // set radian scale domain
+                    radians.domain([-points.length+1,0]);
+                }
+
+                // return path for arc
+                return arc(points);
+            }
+
+
+            } //end of function drawLinks
+
+
+
+
+
+//set buttons:
+     d3.select("#real")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.genre == "真人秀") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+       d3.select("#talent")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.genre == "选秀") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+       d3.select("#talk")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.genre == "脱口秀") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+
+     d3.select("#kr")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "韩国") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+     d3.select("#jp")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "日本") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+     d3.select("#us")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "美国") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+       d3.select("#uk")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "英国") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+       d3.select("#nt")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "荷兰") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+            d3.select("#gm")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "德国") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+     d3.select("#sp")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "西班牙") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+     d3.select("#ir")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "以色列") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+       d3.select("#bg")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "比利时") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+       d3.select("#ai")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "爱尔兰") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+       d3.select("#at")
+       .on("click", function(){
+                                d3.selectAll('path').style('stroke', function (n) {
+                                    if (n.originalCountry == "澳大利亚") 
+                                        { return "red"; }
+                                    else 
+                                        { return "lightgrey"; }
+                                });
+
+                            });
+
+};
+</script>
+</body>
+</html>

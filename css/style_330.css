@@ -1,0 +1,102 @@
+     body {
+      margin:0;
+      padding:0;
+     }
+     .cover {
+        content:url("../img/cover.png");
+        width: 100%;
+      }
+
+      .voice {
+        content:url("../img/voice.png");
+        float:left;
+        width:35%;
+        padding-top: 18%;
+      }
+
+      .box {
+        content:url("../img/box.png");
+        float:left;
+        width:17%;
+        padding-left: 11%;
+        padding-top: 20%;
+      }
+
+      .muyu {
+        content:url("../img/muyu.png");
+        float:left;
+        width:20%;
+        padding-left: 10%;
+        padding-top: 31%
+      }
+
+      .laugh {
+        content:url("../img/laugh.png");
+        float:right;
+        width:20%;
+        padding-right: 10%;
+        padding-top: 7.5%
+      }
+
+
+      #part1 {
+
+        height: 2650px;
+        
+      }
+
+      #part2 {
+        height:950px;
+        background-color: #fef8e8;
+      }
+
+      #part3 {
+        height:1550px;
+      }
+
+      #part4 {
+        height:1450px;
+        background-color: #fef8e8;
+      }
+
+      #part5 {
+        height:1250px;
+      }
+
+      #part6 {
+        height:500px;
+        background-color: #fef8e8;
+
+      }
+
+      .chart {
+        height: 600px;
+      }
+
+      #lifeline {
+        height:800px;
+      }
+      
+
+          p {
+          width: 30%;
+          margin-left: 35%;
+          font-family: "hyqihei50j";
+          font-size: 14px;
+          line-height: 200%;
+          text-indent: 32px;
+          color: #333333;
+         }
+
+         h2 {
+          margin:0;
+         }
+
+        h3 {
+          width: 30%;
+          margin-left: 35%;
+          padding-top: 50px;
+          margin-bottom: 50px;
+          text-align: center
+        }
+         
