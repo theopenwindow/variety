@@ -15,6 +15,16 @@
           margin-right: auto;
         }
 
+         @media screen and (min-width: 50em){
+        .container {
+          position:absolute;
+          width: 1280px;
+          /*height: 8200px;*/
+          margin-left: 20%;
+          /*margin-right: auto;*/
+        }
+      }
+
         .space {
           height:100px;
         }
