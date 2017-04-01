@@ -368,6 +368,33 @@ console.log(parseDate("1984-05-06"));
             return "translate(" + xscale(parseDate(d.group)) + "," + (yfixed+20) + ")";
           }
 
+        node.append("circle")
+        .attr("class", "node")
+        .attr("id", function(d, i) { return d.name; })
+        /*.attr("cx", function(d){ return d.x;})
+        .attr("cy", function(d, i) { return d.y; })*/
+        .attr("transform", transform)
+        .attr("r",  function(d, i) { return radius; })
+        .style("fill",   function(d, i) { return color(d.original_country); })
+        //.on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
+        .on("mouseover", nodeOver)
+        .on("mouseout",  mouseOut);
+
+        node.append("text")
+                .attr("class","label")
+                .text(function(d){
+                    return d.name;
+                })
+                .attr("transform", transformed_label)
+                .style("text-anchor", function(d){
+                    if(d.original_country=="中国"){
+                        return "start";
+                    }else{
+                        return "end";
+                    }
+                })
+                .style("opacity", 0);
+
 
 
 
@@ -429,18 +456,22 @@ console.log(parseDate("1984-05-06"));
                       zoomed();
                     };
                   });
-                  d3.selectAll("path").style("stroke", function(d){return color(d.genre);})
+                  d3.selectAll("path").style("stroke", function(d){return color_genre(d.genre);})
                 };
 
-            d3.select("#reset").on("click", function(){
+         d3.select("#reset").on("click", function(){
                 reset();
 
             });
 
-            d3.selectAll(".node").on("click", function(){
+        d3.selectAll(".node").on("click", function(){console.log("clicked");
                 reset();
-                mouseover(this);
+                nodeOver(this);
             })
+
+            
+
+            
 
             function transformed(d) {
                 // arc will always be drawn around (0, 0)
@@ -490,32 +521,9 @@ var target = xscale(parseDate(d.target.group));
             } //end of function drawLinks
 
 
-        node.append("circle")
-        .attr("class", "node")
-        .attr("id", function(d, i) { return d.name; })
-        /*.attr("cx", function(d){ return d.x;})
-        .attr("cy", function(d, i) { return d.y; })*/
-        .attr("transform", transform)
-        .attr("r",  function(d, i) { return radius; })
-        .style("fill",   function(d, i) { return color(d.original_country); })
-        //.on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
-        .on("mouseover", nodeOver)
-        .on("mouseout",  mouseOut);
 
-        node.append("text")
-                .attr("class","label")
-                .text(function(d){
-                    return d.name;
-                })
-                .attr("transform", transformed_label)
-                .style("text-anchor", function(d){
-                    if(d.original_country=="中国"){
-                        return "start";
-                    }else{
-                        return "end";
-                    }
-                })
-                .style("opacity", 0);
+
+
 
 
 //set buttons:
