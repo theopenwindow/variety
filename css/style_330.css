@@ -8,8 +8,9 @@
 
 
         .container {
+          position:absolute;
           width: 1280px;
-          height: 8200px;
+          /*height: 8200px;*/
           margin-left: auto;
           margin-right: auto;
         }
