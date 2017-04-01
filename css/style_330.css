@@ -15,7 +15,7 @@
           margin-right: auto;
         }
 
-         @media screen and (min-width: 50em){
+         @media screen and (min-width: 1400px){
         .container {
           position:absolute;
           width: 1280px;
