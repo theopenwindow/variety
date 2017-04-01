@@ -7,6 +7,7 @@
 body {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
+    font-size: 12px;
 }
 
 b {
@@ -15,7 +16,7 @@ b {
 
 
 #tooltip {
-    font-size: 10pt;
+    font-size: 10px;
     font-weight: 900;
 
     fill: #000000;
@@ -25,13 +26,12 @@ b {
 
 .node {
     stroke: #ffffff;
-    stroke-weight: 1px;
+    stroke-weight: 0.1px;
 }
 
 .link {
     fill: none;
     stroke-weight: 1px;
-    stroke-opacity: 0.5;
 }
 
 .highlight {
@@ -92,7 +92,7 @@ b {
     }
 
     .selected {
-      color: black;
+      color: #f3d286;
       border-bottom: solid black 0.5px;
     }
 
@@ -185,6 +185,8 @@ function arcDiagram(graph) {
         .attr("height", height)
         .style("margin-left", screenwidth/6);
 
+
+
  //   draw border around svg image
 /*    svg.append("rect")
          .attr("class", "outline")
@@ -196,7 +198,11 @@ function arcDiagram(graph) {
         .attr("id", "plot")
         .attr("transform", "translate(" + radius/10 + ", " + radius/10 + ")");
 
-
+        svg.append("svg:image")
+              .attr("xlink:href", "img/arc_legend.png")
+              .attr("width", "20%")
+              .attr("x", width-margin*10)
+              .attr("y","0");
 
 
     // fix graph links to map to objects instead of indices
@@ -292,13 +298,13 @@ console.log(parseDate("1984-05-06"));
             else 
                 { return "1"; }
         });
-        d3.selectAll('path').style('opacity', function (n) {
+        d3.selectAll('.link').style('opacity', function (n) {
             if (d == n) 
                 { return "1"; }
             else 
                 { return ".2"; }
         });
-        d3.selectAll('path').style('stroke-width', function (n) {
+        d3.selectAll('.link').style('stroke-width', function (n) {
             if (d == n) 
                 { return "3"; }
             else 
@@ -333,6 +339,7 @@ console.log(parseDate("1984-05-06"));
 
     // used to assign nodes color by group
     var color = d3.scale.category20();
+    var color_genre = d3.scale.ordinal().range(['#9cbca5', '#fc7335', '#890962']);
 
     var svgZoom = d3.select("#plot").append("svg")
                 .attr("width", width)
@@ -345,38 +352,7 @@ console.log(parseDate("1984-05-06"));
         .data(graph.nodes)
         .enter();
                 
-        node.append("circle")
-        .attr("class", "node")
-        .attr("id", function(d, i) { return d.name; })
-        /*.attr("cx", function(d){ return d.x;})
-        .attr("cy", function(d, i) { return d.y; })*/
-        .attr("transform", transform)
-        .attr("r",  function(d, i) { return radius; })
-        .style("fill",   function(d, i) { return color(d.original_country); })
-        //.on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
-        .on("mouseover", nodeOver)
-        .on("mouseout",  mouseOut);
 
-        node.append("text")
-                .attr("class","label")
-                .text(function(d){
-                    return d.name;
-                })
-                .attr("transform", transformed_label)
-                /*.attr("x", function(d){
-                    return d.x
-                })
-                .attr("y", function(d){
-                    return (d.y+20);
-                })*/
-                .style("text-anchor", function(d){
-                    if(d.original_country=="中国"){
-                        return "start";
-                    }else{
-                        return "end";
-                    }
-                })
-                .style("opacity", 0);
 
         svgZoom.append("g")
             .attr("class", "x axis")
@@ -418,7 +394,7 @@ console.log(parseDate("1984-05-06"));
 
             link.append("path")
             .attr("class", "link")
-            .style("stroke", function(d){return color(d.genre);})
+            .style("stroke", function(d){return color_genre(d.genre);})
             .style("stroke-width", function(d){return d.value;})
             .attr("transform", transformed)
             .attr("d", discription)
@@ -514,7 +490,32 @@ var target = xscale(parseDate(d.target.group));
             } //end of function drawLinks
 
 
+        node.append("circle")
+        .attr("class", "node")
+        .attr("id", function(d, i) { return d.name; })
+        /*.attr("cx", function(d){ return d.x;})
+        .attr("cy", function(d, i) { return d.y; })*/
+        .attr("transform", transform)
+        .attr("r",  function(d, i) { return radius; })
+        .style("fill",   function(d, i) { return color(d.original_country); })
+        //.on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
+        .on("mouseover", nodeOver)
+        .on("mouseout",  mouseOut);
 
+        node.append("text")
+                .attr("class","label")
+                .text(function(d){
+                    return d.name;
+                })
+                .attr("transform", transformed_label)
+                .style("text-anchor", function(d){
+                    if(d.original_country=="中国"){
+                        return "start";
+                    }else{
+                        return "end";
+                    }
+                })
+                .style("opacity", 0);
 
 
 //set buttons:
