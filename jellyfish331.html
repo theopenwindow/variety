@@ -35,12 +35,15 @@
             }
 
             .tooltip p {
-                background-color: rgba(211, 219, 222, 0.7 );
-                font-family: 8px;
-                color: black;
+                /*background-color: rgba(211, 219, 222, 0.8 );*/
+                /*background-color: rgba(0,0,0,0.1);*/
+                background-color: rgba(255,255,255,0.7);
+                font-size: 12px;
                 border: none;
-                border-radius: 8px;
-                padding: 2px;
+                border-radius: 3px;
+                padding: 5px;
+                line-height: 140%;
+                color:black;
             }
       </style>
     </head>
@@ -53,7 +56,7 @@
     </body>
     <script type="text/javascript">
             var fullWidth = 800;
-            var fullHeight = 500;
+            var fullHeight = 700;
 
             var margin = {top: 15, right: 100, bottom: 80, left: 50};
 
@@ -62,7 +65,7 @@
 
             // var dotRadius = 6;
 
-            var color = d3.scale.category20();
+            var color = d3.scale.ordinal().range(['#bf4339','#3b4b6f']);
 
             var xScale = d3.scale.ordinal()
                                  .rangeRoundBands([margin.left, margin.left+width], 1);
@@ -82,11 +85,17 @@
                         .attr("width", fullWidth)
                         .attr("height", fullHeight);
 
-            d3.csv("data/jellyfish_data331.csv", function(data){
+            svg.append("svg:image")
+              .attr("xlink:href", "img/jellyfish_legend.png")
+              .attr("width", "15%")
+              .attr("x", "40")
+              .attr("y","100");
 
-              data.sort(function(a, b) {
+            d3.csv("data/jellyfish_data45.csv", function(data){
+
+             /* data.sort(function(a, b) {
                 return d3.descending(+a.genre, +b.genre);
-              });
+              });*/
 
             	xScale.domain(data.map(
                 function(d){
@@ -106,7 +115,7 @@
 
 
               var circleScale = d3.scale.linear()
-                                        .range([3, 40])
+                                        .range([2, 50])
                                         .domain([100, 20000])
                                         .domain(d3.extent(data, function(d){
                                           return +d.population;
@@ -122,7 +131,7 @@
                       return circleScale(d.population);
                      })
                      .attr("opacity", "0.5")
-                     .attr("fill",   function(d,i) { return color(d.country); });
+                     .attr("fill",   function(d,i) { return color(d.originality); });
 
             	svg.append("g")
             	   .attr("class", "x axis")
@@ -204,7 +213,7 @@
 
                  var legend = svg.selectAll(".legend")
                  // .data(country.slice())
-              .data(["原创","韩国","日本","美国","英国","荷兰","西班牙","以色列","比利时","爱尔兰","澳大利亚"])
+              .data(["原创","引进"])
               .enter().append("g")
               .attr("class", "legend")
               .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });

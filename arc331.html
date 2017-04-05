@@ -46,16 +46,17 @@ b {
     stroke: black;
 }
 
-      .dropdown {
+.dropdown {
     position: relative;
     display: inline-block;
+    list-style-type: none;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
+    background-color: rgba(255,255,255,0.5);
+    min-width: 80px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
     z-index: 1;
@@ -65,34 +66,30 @@ b {
     display: block;
 }
 
-      button {
-      margin-bottom: 2vw;
-      -webkit-border-radius: 8;
-      -moz-border-radius: 8;
-      border-radius: 3px;
-      font-family: Arial;
-      border: none;
-      color: #ccc;
-      font-size: 15px;
-      background: linear-gradient(#eee, #f9f9f9, #eee);
-      box-shadow: 1px 1px 1px #cecece;
-      padding: 2px 10px 2px 10px;
-      text-decoration: none;
-    }
+button {
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #333333;
+  font-size: 14px;
+  background: #fef8e8;
+  padding: 2px 10px 2px 10px;
+  border: solid #333333 1px;
+  text-decoration: none;
+}
 
-    button:hover {
-      background: #eeeeee;
-      color: #595959;
-      text-decoration: none;
-      cursor: pointer;
-    }
+button:hover {
+  background: white;
+  cursor: pointer;
+}
 
     .button {
         margin-left: 20%;
     }
 
     .selected {
-      color: #f3d286;
+      color: #ffeec2;
       border-bottom: solid black 0.5px;
     }
 
@@ -106,6 +103,167 @@ b {
     .btn {
         display:inline;
     }
+
+    a{
+    position: relative;
+    display: block;
+    padding-left: 25px;
+}
+
+#real:before{
+    content: " ";
+    position: absolute;
+    left: 1px;
+    top:5px;
+    height: 2px;
+    width: 20px;
+    border-radius: 1px;
+    background-color: #9cbca5;
+}
+
+#talk:before{
+    content: " ";
+    position: absolute;
+    left: 1px;
+    top:5px;
+    height: 2px;
+    width: 20px;
+    border-radius: 1px;
+    background-color: #fc7335;
+}
+
+#talent:before{
+    content: " ";
+    position: absolute;
+    left: 1px;
+    top:5px;
+    height: 2px;
+    width: 20px;
+    border-radius: 1px;
+    background-color: #890962;
+}
+
+#kr:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #556948;
+}
+
+#jp:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #9CBC6D;
+}
+
+#us:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #EC5633;
+}
+
+#uk:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #526593;
+}
+
+#nt:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #50578E;
+}
+
+#gm:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #507B8E;
+}
+
+#sp:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #477A93;
+}
+
+#ir:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #474D93;
+}
+
+#bg:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #5A98B7;
+}
+
+#ai:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #628EA5;
+}
+
+#at:before{
+    content: " ";
+    position: absolute;
+    left: 3px;
+    top:3px;
+    height: 10px;
+    width: 10px;
+    border-radius: 15px;
+    background-color: #F8C407;
+}
+
 
 
 </style>
@@ -125,7 +283,7 @@ b {
 
 <body>
     <div class="button">
-          <div class="dropdown">  
+          <div class="dropdown" style="float: left;">  
               <button type="button" class="dropbtn">种类</button>  
               <div class="dropdown-content">  
                   <li><a id="real">真人秀</a></li> 
@@ -134,7 +292,7 @@ b {
               </div>  
           </div>  
 
-          <div class="dropdown">  
+          <div class="dropdown" style="float: left;">  
               <button type="button" class="dropbtn">来源国</button>  
               <div class="dropdown-content">  
                   <li><a id="kr">韩国</a></li>
@@ -148,10 +306,12 @@ b {
                   <li><a id="bg">比利时</a></li>
                   <li><a id="ai">爱尔兰</a></li>
                   <li><a id="at">澳大利亚</a></li> 
-              </div>  
+              </div> 
           </div>
           <button id="reset">重置</button>
+
     </div>
+
 
 <script>
     d3.json("data/project_data327.json", arcDiagram);
@@ -185,7 +345,10 @@ function arcDiagram(graph) {
         .attr("height", height)
         .style("margin-left", screenwidth/6);
 
-
+       svg.append("text")
+                .text("当光标成“十”字形，上下滚动页面可将图表放大或缩小,长按可拖拽。")
+                .attr("x",margin)
+                .attr("y",height-margin);
 
  //   draw border around svg image
 /*    svg.append("rect")
@@ -195,6 +358,9 @@ function arcDiagram(graph) {
 
     // create plot area within svg image
     var plot = svg.append("g")
+    
+              .style("cursor","move")
+
         .attr("id", "plot")
         .attr("transform", "translate(" + radius/10 + ", " + radius/10 + ")");
 
@@ -222,7 +388,6 @@ function arcDiagram(graph) {
 function drawNodes(graph) {
 
         var parseDate = d3.time.format("%Y-%m-%d").parse;
-console.log(parseDate("1984-05-06"));
         var xscale = d3.time.scale()
         .domain(d3.extent(graph.nodes, function(d){
             return parseDate(d.group); 
@@ -311,7 +476,7 @@ console.log(parseDate("1984-05-06"));
                 { return "1"; }
         });
         d3.selectAll('.label').style('opacity', function (n) {
-            if (d.source.right == n.right) 
+            if (d.source.right == n.right||d.target.right == n.right) 
                 { return "1"; }
             else 
                 { return "0"; }
@@ -338,7 +503,8 @@ console.log(parseDate("1984-05-06"));
 
 
     // used to assign nodes color by group
-    var color = d3.scale.category20();
+    // var color = d3.scale.category20();
+    var color = d3.scale.ordinal().range(['#333333', '#526593', '#9CBC6D','#556948','#50578E','#EC5633','#507B8E','#F8C407','#5A98B7','#628EA5','#474D93','#477A93']);
     var color_genre = d3.scale.ordinal().range(['#9cbca5', '#fc7335', '#890962']);
 
     var svgZoom = d3.select("#plot").append("svg")
@@ -368,32 +534,7 @@ console.log(parseDate("1984-05-06"));
             return "translate(" + xscale(parseDate(d.group)) + "," + (yfixed+20) + ")";
           }
 
-        node.append("circle")
-        .attr("class", "node")
-        .attr("id", function(d, i) { return d.name; })
-        /*.attr("cx", function(d){ return d.x;})
-        .attr("cy", function(d, i) { return d.y; })*/
-        .attr("transform", transform)
-        .attr("r",  function(d, i) { return radius; })
-        .style("fill",   function(d, i) { return color(d.original_country); })
-        //.on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
-        .on("mouseover", nodeOver)
-        .on("mouseout",  mouseOut);
 
-        node.append("text")
-                .attr("class","label")
-                .text(function(d){
-                    return d.name;
-                })
-                .attr("transform", transformed_label)
-                .style("text-anchor", function(d){
-                    if(d.original_country=="中国"){
-                        return "start";
-                    }else{
-                        return "end";
-                    }
-                })
-                .style("opacity", 0);
 
 
 
@@ -425,6 +566,7 @@ console.log(parseDate("1984-05-06"));
             .style("stroke-width", function(d){return d.value;})
             .attr("transform", transformed)
             .attr("d", discription)
+            .style("cursor","pointer")
             .on("mouseover", linkOver)
             .on("mouseout", mouseOut);
 
@@ -456,7 +598,8 @@ console.log(parseDate("1984-05-06"));
                       zoomed();
                     };
                   });
-                  d3.selectAll("path").style("stroke", function(d){return color_genre(d.genre);})
+                  d3.selectAll(".link").style("stroke", function(d){return color_genre(d.genre);})
+                    .style("opacity", "1");
                 };
 
          d3.select("#reset").on("click", function(){
@@ -467,7 +610,7 @@ console.log(parseDate("1984-05-06"));
         d3.selectAll(".node").on("click", function(){console.log("clicked");
                 reset();
                 nodeOver(this);
-            })
+            });
 
             
 
@@ -523,46 +666,78 @@ var target = xscale(parseDate(d.target.group));
 
 
 
+        node.append("circle")
+        .attr("class", "node")
+        .attr("id", function(d, i) { return d.name; })
+        .style("cursor","pointer")
+        .attr("transform", transform)
+        .attr("r",  function(d, i) { return radius; })
+        .style("fill",   function(d, i) { return color(d.original_country); })
+        //.on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
+        .on("mouseover", nodeOver)
+        .on("mouseout",  mouseOut);
+
+        node.append("text")
+                .attr("class","label")
+                .text(function(d){
+                    return d.name;
+                })
+                .attr("transform", transformed_label)
+                .style("text-anchor", function(d){
+                    if(d.original_country=="中国"){
+                        return "start";
+                    }else{
+                        return "end";
+                    }
+                })
+                .style("opacity", 0);
+
 
 
 
 //set buttons:
      d3.select("#real")
        .on("click", function(){
-                                d3.selectAll('path').style('stroke', function (n) {
+                                d3.selectAll('path').style('opacity', function (n) {
                                     if (n.genre == "真人秀") 
-                                        { return "red"; }
+                                        { return "1"; }
                                     else 
-                                        { return "lightgrey"; }
+                                        { return "0.1"; }
                                 });
+                               /* d3.selectAll("button").classed("selected", false);
+                                d3.select("#real").classed("selected", true);*/
 
                             });
        d3.select("#talent")
        .on("click", function(){
-                                d3.selectAll('path').style('stroke', function (n) {
+                                d3.selectAll('path').style('opacity', function (n) {
                                     if (n.genre == "选秀") 
-                                        { return "red"; }
+                                        { return "1"; }
                                     else 
-                                        { return "lightgrey"; }
-                                });
-
+                                        { return "0.1"; }
+                               });
+                                /* d3.selectAll("button").classed("selected", false);
+                                d3.select("#talent").classed("selected", true);
+*/
                             });
        d3.select("#talk")
        .on("click", function(){
-                                d3.selectAll('path').style('stroke', function (n) {
+                                d3.selectAll('path').style('opacity', function (n) {
                                     if (n.genre == "脱口秀") 
-                                        { return "red"; }
+                                        { return "1"; }
                                     else 
-                                        { return "lightgrey"; }
+                                        { return "0.1"; }
                                 });
-
+                                /*d3.selectAll("button").classed("selected", false);
+                                d3.select("#talk").classed("selected", true);
+*/
                             });
 
      d3.select("#kr")
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "韩国") 
-                                        { return "red"; }
+                                        { return "#556948"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
@@ -572,7 +747,7 @@ var target = xscale(parseDate(d.target.group));
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "日本") 
-                                        { return "red"; }
+                                        { return "#9CBC6D"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
@@ -582,7 +757,7 @@ var target = xscale(parseDate(d.target.group));
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "美国") 
-                                        { return "red"; }
+                                        { return "#EC5633"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
@@ -592,7 +767,7 @@ var target = xscale(parseDate(d.target.group));
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "英国") 
-                                        { return "red"; }
+                                        { return "#526593"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
@@ -602,7 +777,7 @@ var target = xscale(parseDate(d.target.group));
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "荷兰") 
-                                        { return "red"; }
+                                        { return "#50578E"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
@@ -612,7 +787,7 @@ var target = xscale(parseDate(d.target.group));
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "德国") 
-                                        { return "red"; }
+                                        { return "#507B8E"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
@@ -622,7 +797,7 @@ var target = xscale(parseDate(d.target.group));
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "西班牙") 
-                                        { return "red"; }
+                                        { return "#477A93"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
@@ -632,7 +807,7 @@ var target = xscale(parseDate(d.target.group));
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "以色列") 
-                                        { return "red"; }
+                                        { return "#474D93"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
@@ -642,7 +817,7 @@ var target = xscale(parseDate(d.target.group));
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "比利时") 
-                                        { return "red"; }
+                                        { return "#5A98B7"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
@@ -652,7 +827,7 @@ var target = xscale(parseDate(d.target.group));
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "爱尔兰") 
-                                        { return "red"; }
+                                        { return "#628EA5"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
@@ -662,12 +837,13 @@ var target = xscale(parseDate(d.target.group));
        .on("click", function(){
                                 d3.selectAll('path').style('stroke', function (n) {
                                     if (n.originalCountry == "澳大利亚") 
-                                        { return "red"; }
+                                        { return "#F8C407"; }
                                     else 
                                         { return "lightgrey"; }
                                 });
 
                             });
+
 
 };
 </script>

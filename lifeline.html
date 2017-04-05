@@ -74,19 +74,22 @@
 				color: gray;
 			}
 
-			.tooltip {
+			div.tooltip {
                 position: absolute;
                 z-index: 10;
                 opacity:1;
             }
 
             .tooltip p {
-                background-color: rgba(211, 219, 222, 0.7 );
-                font-family: 8px;
-                color: black;
+                /*background-color: rgba(211, 219, 222, 0.8 );*/
+                /*background-color: rgba(0,0,0,0.1);*/
+                background-color: rgba(255,255,255,0.7);
+                font-size: 12px;
                 border: none;
-                border-radius: 8px;
-                padding: 2px;
+                border-radius: 3px;
+                padding: 5px;
+                line-height: 140%;
+                color:black;
             }
             .circle.unfocused{
                 fill-opacity: 70%;
@@ -113,7 +116,7 @@
 				fullheight = 1000;
 
 			// these are the margins around the graph. Axes labels go in margins.
-			var margin = {top: 80, right: 25, bottom: 20, left: 25};
+			var margin = {top: 40, right: 25, bottom: 20, left: 25};
 
 			var width = fullwidth - margin.left - margin.right,
     		height = fullheight - margin.top - margin.bottom;
@@ -122,7 +125,7 @@
 								.range([ 0, width]);
 
 			var heightScale = d3.scale.ordinal()
-								.rangeRoundBands([ margin.top*1.5, height], 0.5);
+								.rangeRoundBands([ margin.top*0.8, height], 0.4);
 
 			var color = d3.scale.ordinal().range(['#bb4035', '#f29282', '#415a92', '#09b5c9']);
 
@@ -143,10 +146,10 @@
 						.attr("height", fullheight);
 
 			svg.append("svg:image")
-			  .attr("xlink:href", "img/lifeline_small.png")
-			  .attr("width", "70%")
+			  .attr("xlink:href", "img/lifeline_small2.png")
+			  .attr("width", "60%")
 			  .attr("x", margin.left)
-			  .attr("y",380);
+			  .attr("y",230);
 
 
 			d3.csv("data/lifeline_data.csv", function(error, data) {
@@ -302,6 +305,7 @@
                         .transition()
                         .attr("stroke-width", 3)
                         .attr("cursor", "pointer");
+
                 	tooltip.style("display", null) 
                         	.html("<p>" + d.name +
                                     "<br>开播: " + d.start +
