@@ -15,15 +15,8 @@
           margin-right: auto;
         }
 
-         @media screen and (min-width: 1400px){
-        .container {
-          position:absolute;
-          width: 1280px;
-          /*height: 8200px;*/
-          margin-left: 20%;
-          /*margin-right: auto;*/
-        }
-      }
+
+     
 
         .space {
           height:250px;
@@ -43,25 +36,10 @@
       }
 
       .voice {
-        content:url("../img/voice2.png");
+        content:url("../img/voice4.6.png");
         position:absolute;
         width:25%;
         padding-top: 19%;
-      }
-
-      .box {
-        content:url("../img/box.png");
-        position:absolute;
-        width:24%;
-        padding-left: 4%;
-        padding-top: 36.7%;
-      }
-
-      .muyu {
-        content:url("../img/muyu2.png");
-        position:absolute;
-        width:24%;
-        padding-left: 74.5%;
       }
 
       .laugh {
@@ -71,9 +49,54 @@
         padding-left: 75%;
         padding-top: 4%
       }
+    
+      .box {
+        content:url("../img/box4.6.png");
+        position:absolute;
+        width:24%;
+        padding-left: 4%;
+        padding-top: 35.7%;
+      }
+
+      .muyu {
+        content:url("../img/muyu2.png");
+        position:absolute;
+        width:24%;
+        padding-left: 74.5%;
+      }
+
+    @media screen and (min-width: 1400px){
+        .container {
+          position:absolute;
+          width: 1280px;
+          margin-left: 23%;
+        }
+
+        .voice{
+          width:30%;
+          padding-top: 30%;
+        }
+
+        .laugh {
+        width:31%;
+        padding-left: 80%;
+        padding-top: 0;
+       }
+
+       .box {
+        width:30%;
+        padding-left: 0;
+        padding-top: 35.6%;
+      }
+
+      .muyu {
+        width:35%;
+        padding-left: 88%;
+      }
+    }
 
       .total{
-        content:url("../img/total3.png");
+        content:url("../img/total4.6.png");
         position: absolute;
         width:70%;
         padding-left: 18%;
@@ -81,7 +104,7 @@
       }
 
       .small_timeline{
-        content:url("../img/small_timeline2.png");
+        content:url("../img/small_timeline.png");
         display: inline;
         width:50%;
         padding-left: 25%;
@@ -89,7 +112,7 @@
       }
 
       .title1{
-        content:url("../img/title11.png");
+        content:url("../img/title1.png");
         display: inline;
         width:60%;
         padding-left: 20%;
@@ -97,7 +120,7 @@
       }
 
       .title2{
-        content:url("../img/title22.png");
+        content:url("../img/title2.png");
         display: inline;
         width:60%;
         padding-left: 20%;
@@ -105,7 +128,7 @@
       }
 
       .title3{
-        content:url("../img/title33.png");
+        content:url("../img/title3.png");
         display: inline;
         width:60%;
         padding-left: 20%;
@@ -113,7 +136,7 @@
       }
 
       .title4{
-        content:url("../img/title44.png");
+        content:url("../img/title4.png");
         display: inline;
         width:60%;
         padding-left: 20%;
@@ -121,32 +144,7 @@
       }
 
 
-     /* #part1 {
-
-        height: 2650px;
-        
-      }
-
-      #part2 {
-        height:950px;
-      }
-
-      #part3 {
-        height:1550px;
-      }
-
-      #part4 {
-        height:1450px;
-      }
-
-      #part5 {
-        height:1250px;
-      }
-
-      #part6 {
-        height:500px;
-
-      }*/
+   
 
       .chart {
         height: 600px;
@@ -156,8 +154,6 @@
         height:800px;
       }
 
-
-      
 
           p {
           width: 50%;

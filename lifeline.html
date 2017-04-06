@@ -146,7 +146,7 @@
 						.attr("height", fullheight);
 
 			svg.append("svg:image")
-			  .attr("xlink:href", "img/lifeline_small2.png")
+			  .attr("xlink:href", "img/lifeline_small4.6.png")
 			  .attr("width", "60%")
 			  .attr("x", margin.left)
 			  .attr("y",230);
@@ -263,18 +263,12 @@
 					.attr("transform", "translate(" + margin.left + "," + margin.top*2/3 + ")")
 					.call(xAxis);
 
-				/*svg.append("g")
-					.attr("class", "y axis")
-					.attr("transform", "translate(" + margin.left + ",0)")
-					.call(yAxis)*/;
+				svg.append("text")
+					.text("（年）")
+					.attr("x","730")
+					.attr("y", "18")
+					.style("font-size", "11px");
 
-				/*svg.append("text")
-					.attr("class", "xlabel")
-        			.attr("transform", "translate(" + (margin.left + width / 2) + " ," +
-        				(height + margin.bottom) + ")")
-        			.style("text-anchor", "middle")
-		        	.attr("dy", "12")
-		        	.text("Year");*/
 
 	        	  var legend = svg.selectAll(".legend")
 				      .data(["CCTV","一线卫视","二线及其他卫视","网络平台"])
