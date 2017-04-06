@@ -15,15 +15,6 @@ b {
 }
 
 
-#tooltip {
-    font-size: 10px;
-    font-weight: 900;
-
-    fill: #000000;
-    stroke: #ffffff;
-    stroke-width: 0.25px;
-}
-
 .node {
     stroke: #ffffff;
     stroke-weight: 0.1px;
@@ -271,14 +262,7 @@ button:hover {
 <!-- JavaScript Libraries //-->
  <script type="text/javascript" src="js/d3-3.1.0/d3.js"></script>
  <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
-<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
-<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script> -->
 
-<!-- CSS Style //-->
-<!-- <link href="style.css" rel="stylesheet" type="text/css"> -->
-
-<!-- <script type="text/javascript" src="main_timeline_329.js"></script> -->
 </head>
 
 <body>
@@ -531,7 +515,7 @@ function drawNodes(graph) {
           }
 
           function transformed_label(d){
-            return "translate(" + xscale(parseDate(d.group)) + "," + (yfixed+20) + ")";
+            return "translate(" + xscale(parseDate(d.group)) + "," + (yfixed+17) + ")";
           }
 
 
@@ -689,7 +673,11 @@ var target = xscale(parseDate(d.target.group));
                     }else{
                         return "end";
                     }
-                })
+                }) 
+/*                .style("background-color","rgba(255,255,255,0.7)")
+                .style("font-size","12px")
+                .style("border-radius:3px")
+                .style("padding","5px")*/
                 .style("opacity", 0);
 
 
