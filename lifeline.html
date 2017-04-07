@@ -116,7 +116,7 @@
 				fullheight = 1000;
 
 			// these are the margins around the graph. Axes labels go in margins.
-			var margin = {top: 40, right: 25, bottom: 20, left: 25};
+			var margin = {top: 80, right: 25, bottom: 20, left: 25};
 
 			var width = fullwidth - margin.left - margin.right,
     		height = fullheight - margin.top - margin.bottom;
@@ -125,7 +125,7 @@
 								.range([ 0, width]);
 
 			var heightScale = d3.scale.ordinal()
-								.rangeRoundBands([ margin.top*0.8, height], 0.4);
+								.rangeRoundBands([ margin.top*1.5, height], 0.4);
 
 			var color = d3.scale.ordinal().range(['#bb4035', '#f29282', '#415a92', '#09b5c9']);
 
@@ -251,6 +251,17 @@
 						return color(d.platform);
 				 	});
 
+
+	 			dots2006
+                     .on("mouseover", mouseoverFunc) 
+                     .on("mousemove", mousemoveFunc)
+                     .on("mouseout", mouseoutFunc);
+
+                dots2015
+                     .on("mouseover", mouseoverFunc) 
+                     .on("mousemove", mousemoveFunc)
+                     .on("mouseout", mouseoutFunc); 
+
 					// add the axes
 
 				linesBetween
@@ -266,8 +277,14 @@
 				svg.append("text")
 					.text("（年）")
 					.attr("x","730")
-					.attr("y", "18")
+					.attr("y", "31")
 					.style("font-size", "11px");
+
+				svg.append("text")
+					.text("中国大陆综艺节目生命线（1990-2017）")
+					.attr("x","20")
+					.attr("y", "15")
+					.style("font-size", "15px");
 
 
 	        	  var legend = svg.selectAll(".legend")
